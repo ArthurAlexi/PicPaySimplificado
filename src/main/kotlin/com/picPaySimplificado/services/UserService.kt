@@ -26,5 +26,8 @@ class UserService(@Autowired private val userRepository : UserRepository) {
         .orElseThrow{RuntimeException("User does not exist")}
 
     fun saveUser(userDTO : UserDTO) = userRepository.save(User(userDTO))
+
     fun saveUser(user : User) = userRepository.save(user)
+
+    fun getAllUsers(): List<User> = userRepository.findAll()
 }
