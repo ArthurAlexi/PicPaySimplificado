@@ -1,5 +1,6 @@
 package com.picPaySimplificado.domain.user
 
+import com.picPaySimplificado.dtos.UserDTO
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -37,4 +38,14 @@ data class User(
 
     @Enumerated(EnumType.STRING)
     var type: UserType
-)
+){
+    constructor(userDTO: UserDTO): this(
+        UUID.randomUUID().toString(),
+        userDTO.firstName,
+        userDTO.lastName,
+        userDTO.document,
+        userDTO.email,
+        userDTO.password,
+        userDTO.balance,
+        userDTO.type)
+}

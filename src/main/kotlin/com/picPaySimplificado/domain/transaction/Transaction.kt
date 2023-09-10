@@ -23,15 +23,18 @@ data class Transaction(
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: String = UUID.randomUUID().toString(),
 
-    private val amount: BigDecimal,
+    val amount: BigDecimal,
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
-    private val sender: User,
+    val sender: User,
 
     @ManyToOne
     @JoinColumn(name = "receiver_id")
-    private val receiver: User,
+    val receiver: User,
 
-    private val timestamp: LocalDateTime = LocalDateTime.now()
-)
+    val timestamp: LocalDateTime
+){
+    constructor(sender: User, receiver: User, amount: BigDecimal, timestamp: LocalDateTime)
+            : this(UUID.randomUUID().toString(), amount,sender, receiver,timestamp)
+}
