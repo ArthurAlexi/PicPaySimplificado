@@ -27,7 +27,7 @@ class TransactionService(
     @Autowired
     private val restTemplate =  RestTemplate()
 
-    fun createTransaction( transactionDTO :TransactionDTO){
+    fun createTransaction( transactionDTO :TransactionDTO): Transaction{
         val sender : User = userService.findUserById(transactionDTO.senderId)
         val receiver : User = userService.findUserById(transactionDTO.receiverId)
 
@@ -37,17 +37,19 @@ class TransactionService(
             throw Exception("unauthorized Transaction")
         }
 
-        val transaction : Transaction = Transaction(sender = sender, receiver = receiver, amount = transactionDTO.value, timestamp= LocalDateTime.now())
+        val newTransaction : Transaction = Transaction(sender = sender, receiver = receiver, amount = transactionDTO.value, timestamp= LocalDateTime.now())
 
         sender.balance = sender.balance.subtract(transactionDTO.value)
         receiver.balance = receiver.balance.add(transactionDTO.value)
 
-        this.transactionRepository.save(transaction)
+        this.transactionRepository.save(newTransaction)
         this.userService.saveUser(sender)
         this.userService.saveUser(receiver)
 
-        this.notificationService.sendNotification(sender, "transaction successful")
-        this.notificationService.sendNotification(receiver, "transaction successful")
+//        this.notificationService.sendNotification(sender, "transaction successful")
+//        this.notificationService.sendNotification(receiver, "transaction successful")
+
+        return newTransaction
     }
 
 
