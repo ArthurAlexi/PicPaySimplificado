@@ -16,11 +16,8 @@ import java.time.LocalDateTime
 
 @Service
 class TransactionService(
-    @Autowired
     private val userService: UserService,
-    @Autowired
     private val transactionRepository: TransactionRepository,
-    @Autowired
     private val notificationService: NotificationService,
 ) {
 

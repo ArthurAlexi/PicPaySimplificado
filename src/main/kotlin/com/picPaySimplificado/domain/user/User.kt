@@ -20,7 +20,7 @@ import java.util.UUID
 @NoArgsConstructor
 data class User(
     @Id
-    private val id: String = UUID.randomUUID().toString(),
+    val id: String,
 
     val firstName: String,
 

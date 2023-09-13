@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
-class UserService(@Autowired private val userRepository : UserRepository) {
+class UserService(private val userRepository : UserRepository) {
 
     fun validateTransaction(sender: User, amount: BigDecimal) {
         if(sender.type != UserType.COMMOM){
